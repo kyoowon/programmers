@@ -23,7 +23,7 @@ export default function Nodes({ $app, initialState, onClick }){
                 <div class="Node" data-node-id="${node.id}">
                     <img src="${iconPath}" />
                     <div>${node.name}</div>
-                <div>
+                </div>
                 `
             }).join('')
 
@@ -32,9 +32,10 @@ export default function Nodes({ $app, initialState, onClick }){
 
 
 
-        this.$target.querySelectorAll("node").forEach($node => {
+        this.$target.querySelectorAll("Node").forEach($node => {
             $node.addEventListener('click', (e) => {
                 const { nodeId } = e.target.dataset;
+                console.log(nodeId)
                 const selectNode = this.state.nodes.find(node => node.id === nodeId)
 
                 if (selectNode){

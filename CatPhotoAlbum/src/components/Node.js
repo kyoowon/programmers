@@ -11,14 +11,11 @@ export default function Nodes({ $app, initialState, onClick }){
         this.render()
     }
 
-    this.onClick = onClick;
-
     // state 업데이트 할 때마다 $target에 해당 state의 node를 render
     this.render = () => {
         if (this.state.nodes) {
             const nodeTemplate = this.state.nodes.map(node => {
                 const iconPath = node.type === 'FILE' ? './assets/file.png' : './assets/directory.png';
-
                 return `
                 <div class="Node" data-node-id="${node.id}">
                     <img src="${iconPath}" />
@@ -30,14 +27,12 @@ export default function Nodes({ $app, initialState, onClick }){
             this.$target.innerHTML = !this.state.isRoot ? `<div class="Node"><img src="/assets/prev.png"></div>${nodeTemplate}` : nodeTemplate
         }
 
+        this.onClick = onClick;
 
-
-        this.$target.querySelectorAll("Node").forEach($node => {
+        this.$target.querySelectorAll('.Node').forEach($node => {
             $node.addEventListener('click', (e) => {
-                const { nodeId } = e.target.dataset;
-                console.log(nodeId)
+                const { nodeId } = e.target.parentElement.dataset
                 const selectNode = this.state.nodes.find(node => node.id === nodeId)
-
                 if (selectNode){
                     this.onClick(selectNode)
                 }
